@@ -18,23 +18,26 @@ def gpt(prompt, text, model="gpt-3.5-turbo-16k", temperature=0.2):
 
 def process(df, target, prompts):
     placeholder = st.empty()
-    for name, prompt in prompts.items():
+
+    # Ensure that all the columns are present
+    for name in prompts.keys():
         if name not in df:
             df[name] = ''
         df[name] = df[name].astype('string')
-        count = 0
-        for i in range(0, len(df)):
+
+    # Loop through the dataframe rows
+    for i in range(0, len(df)):
+        for name, prompt in prompts.items():
             try:
-                text = df.loc[i, target][0:5000]
+                text = df.loc[i, target][0:5000]  # Consider refining this based on GPT's token limits
                 output = gpt(prompt, text)
                 df.loc[i, name] = output
                 subset = df[[target, *prompts.keys()]]
                 placeholder.dataframe(subset)
-                count += 1
             except Exception as e:
-                print(e)
-                st.write(f"Error encountered at index {i}.")
+                st.write(f"Error encountered at index {i}. Reason: {str(e)}")
                 time.sleep(20)  # Wait for 20 seconds
+
     return True
 
 example = ["Summarize the article", "List specific individuals mentioned", 
