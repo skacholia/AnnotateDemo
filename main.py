@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 import openai
 import time
-
-openai.api_key = "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"
-
+openai.api_key = st.secrets["openai"]
 def gpt(prompt, text, model="gpt-3.5-turbo-16k", temperature=0.2):
     response = openai.ChatCompletion.create(
       model=model,
