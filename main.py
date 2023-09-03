@@ -6,9 +6,7 @@ from io import StringIO
 openai.api_key = st.secrets["openai"]
 
 def txt(file):
-    stringio=StringIO(file.getvalue().decode('utf-8'))
-    content=stringio.read()
-    # Splitting the content into individual documents using the repetitive pattern of underscores
+    content = file.getvalue().decode('utf-8')
     documents = content.split("____________________________________________________________")
 
     # Removing any empty strings or ones that don't look like documents
@@ -103,6 +101,7 @@ example = ["Summarize the article", "List specific individuals mentioned",
 file = st.file_uploader("Upload a file", type=("csv", "txt"))
 
 if file:
+    st.writea(file.name)
     try:        
         df = pd.read_csv(file)
     except:
