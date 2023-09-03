@@ -7,7 +7,7 @@ openai.api_key = st.secrets["openai"]
 
 def txt(file):
     stringio=StringIO(file.getvalue().decode('utf-8'))
-    documents=stringio.read()
+    content=stringio.read()
     # Splitting the content into individual documents using the repetitive pattern of underscores
     documents = content.split("____________________________________________________________")
 
