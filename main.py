@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 import openai
 import time
+from io import StringIO
 openai.api_key = st.secrets["openai"]
 
-def txt(content):
-    with open(content.name) as f:
-        content = f.readlines()
+def txt(file):
+    stringio=StringIO(file.getvalue().decode('utf-8'))
+    documents=stringio.read()
     # Splitting the content into individual documents using the repetitive pattern of underscores
     documents = content.split("____________________________________________________________")
 
