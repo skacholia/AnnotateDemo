@@ -50,12 +50,12 @@ def txt(file):
         full_text = full_text_match.group(1).strip() if full_text_match else None
         full_texts.append(full_text)
         # Constructing the dataframe
-        df = pd.DataFrame({
-            "Document URL": document_urls,
-            "Publication Date": publication_dates,
-            "Publication Title": publication_titles,
-            "Full Text": full_texts
-        })
+    df = pd.DataFrame({
+        "Document URL": document_urls,
+        "Publication Date": publication_dates,
+        "Publication Title": publication_titles,
+        "Full Text": full_texts
+    })
 
     return df
 
