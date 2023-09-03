@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import openai
 import time
-from io import StringIO
 import re
 
 openai.api_key = st.secrets["openai"]
