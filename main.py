@@ -102,7 +102,6 @@ example = ["Summarize the article", "List specific individuals mentioned",
 file = st.file_uploader("Upload a file", type=("csv", "txt"))
 
 if file:
-    st.write(file.name)
     try:        
         df = pd.read_csv(file)
     except:
