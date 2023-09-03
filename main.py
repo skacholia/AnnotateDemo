@@ -5,6 +5,8 @@ import time
 openai.api_key = st.secrets["openai"]
 
 def txt(content):
+    with open(content.name) as f:
+        content = f.readlines()
     # Splitting the content into individual documents using the repetitive pattern of underscores
     documents = content.split("____________________________________________________________")
 
