@@ -14,7 +14,6 @@ def txt(file):
     documents = [doc.strip() for doc in documents if "Full text:" in doc]
     # Checking the number of documents identified and displaying the first document to validate our approach
     num_documents = len(documents)
-    num_documents, documents[0][:1000]  # Displaying the first 1000 characters of the first document for clarity
 
     # Re-initializing the lists to store the extracted data
     document_names = []
@@ -85,7 +84,7 @@ def process(df, target, prompts):
     for i in range(0, len(df)):
         for name, prompt in prompts.items():
             try:
-                text = df.loc[i, target][0:5000]  # Consider refining this based on GPT's token limits
+                text = df.loc[i, target][0:6000]  # Consider refining this based on GPT's token limits
                 output = gpt(prompt, text)
                 df.loc[i, name] = output
                 subset = df[[target, *prompts.keys()]]
@@ -97,7 +96,7 @@ def process(df, target, prompts):
     return True
 
 example = ["Summarize the article", "List specific individuals mentioned", 
-          "3. Classify article type (op-ed, report, etc."]
+          "Classify article type (op-ed, report, etc.", "Prompt 4", "Prompt 5"]
 
 file = st.file_uploader("Upload a file", type=("csv", "txt"))
 
@@ -108,7 +107,7 @@ if file:
         df = txt(file)
     column = st.selectbox("Column of interest:", tuple(df.columns))
     prompts = {}
-    n = st.number_input('Number of prompts:', min_value = 0, max_value=3)
+    n = st.number_input('Number of prompts:', min_value = 0, max_value=5)
     for i in range(0,n):
         prompts[f"Column {i+1}"] = st.text_input(f"Prompt {i+1}", 
             placeholder=example[i]
